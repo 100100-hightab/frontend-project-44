@@ -1,4 +1,5 @@
 #!/usr/bin/env node
-import startEvenGame from '../src/games/even.js'
+import { nameAnswer } from '../src/cli.js'
+import { evenNumbers } from '../src/games/even.js'
 
-startEvenGame()
+evenNumbers(nameAnswer())

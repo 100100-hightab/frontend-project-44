@@ -1,4 +1,5 @@
 #!/usr/bin/env node
-import startGcdGame from '../src/games/gcd.js'
+import { nameAnswer } from '../src/cli.js'
+import { gcd } from '../src/games/gcd.js'
 
-startGcdGame()
+gcd(nameAnswer())

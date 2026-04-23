@@ -1,4 +1,5 @@
 #!/usr/bin/env node
-import startCalcGame from '../src/games/calc.js'
+import { nameAnswer } from '../src/cli.js'
+import { calculator } from '../src/games/calculator.js'
 
-startCalcGame()
+calculator(nameAnswer())

@@ -1,4 +1,5 @@
 #!/usr/bin/env node
-import startPrimeGame from '../src/games/prime.js'
+import { nameAnswer } from '../src/cli.js'
+import { prime } from '../src/games/prime.js'
 
-startPrimeGame()
+prime(nameAnswer())
