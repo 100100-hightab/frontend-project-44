@@ -1,27 +1,33 @@
-import runEngine from '../index.js'
+import { question } from '../brain-quest.js'
 
-const taskInfo = 'Find the greatest common divisor of given numbers.'
-
-const getRandomValue = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min
-
-const calculateGcd = (first, second) => {
-  let a = first
-  let b = second
+const findNod = (a, b) => {
   while (b !== 0) {
-    a %= b;
-    [a, b] = [b, a]
+    let temp = b
+    b = a % b
+    a = temp
   }
   return a
 }
 
-const getGameRound = () => {
-  const number1 = getRandomValue(1, 100)
-  const number2 = getRandomValue(1, 100)
+const gcd = (name) => {
+  console.log('Find the greatest common divisor of given numbers.')
 
-  const challenge = `${number1} ${number2}`
-  const correctAnswer = calculateGcd(number1, number2)
+  let min = 1
+  let max = 100
 
-  return [challenge, String(correctAnswer)]
+  for (let i = 0; i < 3; i += 1) {
+    let randomNumOne = Math.floor(Math.random() * (max - min + 1)) + min
+    let randomNumTwo = Math.floor(Math.random() * (max - min + 1)) + min
+    const answer = findNod(randomNumOne, randomNumTwo)
+
+    if (
+      question(`${randomNumOne} ${randomNumTwo}`, `${answer}`, name) === false
+    ) {
+      return
+    }
+  }
+
+  console.log(`Congratulations, ${name}!`)
 }
 
-export default () => runEngine(taskInfo, getGameRound)
+export { gcd }

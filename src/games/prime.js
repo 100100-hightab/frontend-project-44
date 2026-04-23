@@ -1,23 +1,35 @@
-import runEngine from '../index.js'
+import { question } from '../brain-quest.js'
 
-const taskDescription = 'Answer "yes" if given number is prime. Otherwise answer "no".'
+const prime = (name) => {
+  console.log('Answer "yes" if given number is prime. Otherwise answer "no".')
 
-const getRandomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min
+  let min = 1
+  let max = 100
 
-const isPrime = (num) => {
-  if (num < 2) return false
-  for (let i = 2; i <= Math.sqrt(num); i += 1) {
-    if (num % i === 0) return false
+  for (let i = 0; i < 3; i += 1) {
+    let randomNum = Math.floor(Math.random() * (max - min + 1)) + min
+    let subAnswer = 'yes'
+    let subAnswerEnd = false
+    if (randomNum <= 1) {
+      subAnswer = 'no'
+      subAnswerEnd = true
+    }
+
+    if (subAnswerEnd === false) {
+      for (let i = 2; i <= Math.sqrt(randomNum); i += 1) {
+        if (randomNum % i === 0) {
+          subAnswer = 'no'
+          break
+        }
+      }
+    }
+
+    if (question(randomNum, subAnswer, name) === false) {
+      return
+    }
   }
-  return true
+
+  console.log(`Congratulations, ${name}!`)
 }
 
-const makeRound = () => {
-  const number = getRandomInt(1, 100)
-  const question = String(number)
-  const correctAnswer = isPrime(number) ? 'yes' : 'no'
-
-  return [question, correctAnswer]
-}
-
-export default () => runEngine(taskDescription, makeRound)
+export { prime }

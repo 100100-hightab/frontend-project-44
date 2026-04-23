@@ -1,26 +1,36 @@
-import runEngine from '../index.js'
+import { question } from '../brain-quest.js'
 
-const description = 'What number is missing in the progression?'
+const progressionMaker = () => {
+  let progressionArr = []
+  let min = 1
+  let max = 100
+  let stepMax = 10
+  let start = Math.floor(Math.random() * (max - min + 1)) + min
+  let step = Math.floor(Math.random() * stepMax + 1)
 
-// Простая функция для получения случайного числа
-const getRandomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min
-
-const getRoundData = () => {
-  const start = getRandomInt(1, 20)
-  const step = getRandomInt(2, 5)
-  const length = getRandomInt(5, 10)
-  const hiddenIndex = getRandomInt(0, length - 1)
-
-  const progression = []
-  for (let i = 0; i < length; i += 1) {
-    progression.push(start + step * i)
+  for (let i = 0; i < 10; i += 1) {
+    let currentElement = start + i * step
+    progressionArr.push(currentElement)
   }
-
-  const answer = String(progression[hiddenIndex])
-  progression[hiddenIndex] = '..'
-  const question = progression.join(' ')
-
-  return [question, answer]
+  return progressionArr
 }
 
-export default () => runEngine(description, getRoundData)
+const progression = (name) => {
+  console.log('What number is missing in the progression?')
+
+  for (let i = 0; i < 3; i += 1) {
+    let progressions = progressionMaker()
+    let outNumMax = 10
+    let outNum = Math.floor(Math.random() * outNumMax)
+    let answer = progressions[outNum]
+    progressions[outNum] = '..'
+
+    if (question(progressions.join(' '), `${answer}`, name) === false) {
+      return
+    }
+  }
+
+  console.log(`Congratulations, ${name}!`)
+}
+
+export { progression }
